@@ -1,6 +1,6 @@
 <?php
 
-require_once("/var/www/html/ParsePhoto/Helpers/MysqlConnect.php");
+require_once("/var/www/html/getfaces/Helpers/MysqlConnect.php");
 
 class ParseLike extends MysqlConnect {
 	

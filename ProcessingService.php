@@ -1,6 +1,6 @@
 <?php
 
-require_once("/var/www/html/ParsePhoto/Helpers/LoaderHelper.php");
+require_once("/var/www/html/getfaces/Helpers/LoaderHelper.php");
 
 //Statuses:
 //0 - photo without status
