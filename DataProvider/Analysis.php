@@ -16,12 +16,6 @@ class Analysis
     private $curlServiceProvider;
     private $photoProvider;
     private $configAnalysis;
-    // private $analyzeDelay = 30;
-    // private $getPhotoClassInst = null;
-    // private $parseThispersonClassInst = null;
-    // private $parseAnalyzeClassInst = null;
-    // private $analyzeAccessSql = null;
-    // private $logClassInst = null;
 
     function __construct()
     {
@@ -54,13 +48,11 @@ class Analysis
         $idsForAnalysis = $this->photoProvider->getPhotoDataForAnalysis();
 
         if (!empty($idsForAnalysis)) {
-            //check expire account and limits.
-            //expired 0 - active account
-            //expired 1 - inactive account
+            Logger::displayDebug("Info", "Founded [" . count($idsForAnalysis) . "] photos for analyzed");
             $access = $this->checkAnalysisServiceLimit();
 
             if (empty($access["apiKey"]) || empty($access["apiSecret"])) {
-                $this->getPhotoClass->displayDebug("Error", "All accounts have expired limit");
+                Logger::displayDebug("Error", "All accounts have expired limit");
                 exit;
             }
 
