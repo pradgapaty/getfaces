@@ -45,7 +45,6 @@ class SyncLocalData
 
         foreach ($this->prefixes as $key => $pathPrefix) {
             $images = glob($pathSettings["localPhotoPath"] . $pathPrefix . "/*.jpg");
-            Logger::displayDebug("Info", "Processing prefix [" . $pathPrefix . "]");
 
             if (!empty($images) && is_array($images)) {
                 $time = time();
@@ -53,7 +52,7 @@ class SyncLocalData
     
                 foreach($images as $image)
                 {
-                    Logger::displayDebug("Info", "Remaining: " . $count);
+                    Logger::displayDebug("Info", "Remaining [" . $pathPrefix . "]: " . $count);
                     $imageName = explode("/", $image)[6];
                     $fileHash = explode(".", $imageName)[0];
         
