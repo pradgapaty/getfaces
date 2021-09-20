@@ -1,0 +1,24 @@
+parsingSettings: {
+  enableParsing: true,
+  parsingLimit : 50,
+  parsingDelay: 10
+  }
+pathSettings: {
+  parsingUrl: "https://thispersondoesnotexist.com/image",
+  # localPhotoPath : "/home/pradgapaty/photosContent/photoStore/",
+  # localPhotoThumbPath: "/home/pradgapaty/photosContent/thumbStore/"
+  localPhotoPath : "/Users/akr/photosContent/photoStore/",
+  localPhotoThumbPath: "/Users/akr/photosContent/thumbStore/"
+  }
+photoSettings: {
+  thumbWidth: 250,
+  thumbHeight: 250,
+  quality: 90
+  }
+analysisSettings: {
+  enableAnalysis: true,
+  serviceLimitsUrl: "http://api.skybiometry.com/fc/account/limits.xml?api_key=",
+  apiUrl: "http://api.skybiometry.com/fc/faces/detect.json?api_key=",
+  serverUrl: "https://getfaces.ml/photoStore/",
+  analysisDelay: 30
+  }

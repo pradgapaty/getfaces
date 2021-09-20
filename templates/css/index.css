@@ -1,0 +1,75 @@
+div.section_header {
+    padding: 3px 6px 3px 6px;
+    background-color: #8E9CB2;
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 112%;
+    text-align: center;
+}
+.deleteDiv {
+   background: white;
+   color: red;
+   font-family: 'Helvetica', 'Arial', sans-serif;
+   font-size: 2em;
+   font-weight: bold;
+   text-align: center;
+   width: 40px;
+   height: 40px;
+   border-radius: 5px;
+}
+pre, code{
+    white-space:pre-line;
+}
+.contain {
+   position: relative;
+   background: black;
+}
+.contain .photoSave {
+   position: absolute;
+   top: 26px;
+   right: 438px;
+   transform: translate(-50%, -50%);
+   -ms-transform: translate(-50%, -50%);
+   background-color: #555;
+   color: white;
+   font-size: 16px;
+   padding: 12px 24px;
+   border: none;
+   cursor: pointer;
+   border-radius: 5px;
+   font-weight: bold;
+}
+.contain .photoLike {
+   position: absolute;
+   top: 76px;
+   right: 514px;
+   transform: translate(-50%, -50%);
+   -ms-transform: translate(-50%, -50%);
+   background-color: #0BDA51;
+   color: white;
+   font-size: 16px;
+   padding: 12px 24px;
+   border: none;
+   cursor: pointer;
+   border-radius: 5px;
+   font-weight: bold;
+}
+.contain .photoDislike {
+   position: absolute;
+   top: 126px;
+   right: 487px;
+   transform: translate(-50%, -50%);
+   -ms-transform: translate(-50%, -50%);
+   background-color: #D3212D;
+   color: white;
+   font-size: 16px;
+   padding: 12px 24px;
+   border: none;
+   cursor: pointer;
+   border-radius: 5px;
+   font-weight: bold;
+}
+
+.contain .photoButton:hover {
+   background-color: black;
+}

@@ -1,0 +1,154 @@
+<link rel="stylesheet" type="text/css" href="templates/css/index.css">
+<script type="text/javascript" src="templates/js/index.js"></script>
+<link rel="stylesheet" href="templates/css/fonts.css">
+<link rel="stylesheet" href="templates/css/animate.css">
+<link rel="stylesheet" href="templates/css/icomoon.css">
+<link rel="stylesheet" href="templates/css/bootstrap.css">
+<link rel="stylesheet" href="templates/css/superfish.css">
+<link type="text/css" rel="stylesheet" href="templates/js/slider/css/lightslider.css" />   
+<link rel="stylesheet" href="templates/css/style.css">
+<link rel="icon" href="templates/img/favicon.png">
+<script src="templates/js/jquery.min.js"></script>
+<script src="templates/js/modernizr-2.6.2.min.js"></script>
+<script src="templates/js/jquery.easing.1.3.js"></script>
+<script src="templates/js/bootstrap.min.js"></script>
+<script src="templates/js/jquery.waypoints.min.js"></script>
+<script src="templates/js/hoverIntent.js"></script>
+<script src="templates/js/superfish.js"></script>
+<script src="templates/js/main.js"></script>
+<script src="templates/js/jsapi.js"></script>
+<script src="templates/js/slider/js/lightslider.js"></script>
+<!DOCTYPE html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+    <meta name="description" CONTENT="Free people photos with faces. You can use filter by gender and age. You can get any photo for self.">
+    <meta name="robots" content="all">
+</head>
+<body>
+	<title> Getfaces.ml </title>
+	<div id="fh5co-wrapper">
+		<div id="fh5co-page">
+			<div id="fh5co-header">
+				<div class="top">
+					<div class="container">
+					</div>
+				</div>
+				<!-- end:top -->
+				<header id="fh5co-header-section">
+					<div class="container">
+						<div class="nav-header">
+							<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
+							<h1 id="fh5co-logo"><a href="/">getfaces.ml</a></h1>
+							<!-- START #fh5co-menu-wrap -->
+							<nav id="fh5co-menu-wrap" role="navigation">
+                                <ul class="sf-menu" id="fh5co-primary-menu">
+									{% for name, fileName in menuList %}
+										<li {% if page == name %} class='active' {% endif %}><a href="{{fileName}}.php">{{name}}</a></li>
+									{% endfor %}
+                                </ul>
+							</nav>
+						</div>
+					</div>
+				</header>
+			</div>
+			<div class="fh5co-hero">
+				<div class="fh5co-overlay"></div>
+				<div class="fh5co-cover text-center" style="background-image: url(templates/img/light-blue-background-abstract-design-260nw-121557973.jpg);">
+					<div class="desc animate-box">
+						<h2>get faces</h2>
+						<label>Total photo: {{ totalPhotos }}</label>
+					</div>
+				</div>
+			</div>
+			<form class="well form-report"  action="" method=post style="text-align: center">
+				<br>
+				<label>Gender</label>
+                <select name="gender" id="gender">
+                    {% for key, name in genderList %}
+                        <option value="{{ name }}" {% if filter.gender == name %} selected {% endif %}>{{ name }}</option>
+                    {% endfor %}
+                </select>
+				&emsp;
+				<label>Age</label>
+				<select name="age" id="age">
+                    {% for key, name in ageList %}
+                        <option value="{{ name }}" {% if filter.age == name %} selected {% endif %}>{{ name }}</option>
+                    {% endfor %}
+				</select>
+				&emsp;
+				<label>Limit</label>
+				<select name="limit" id="limit">
+                    {% for key, name in limitList %}
+                        <option value="{{ name }}" {% if filter.limit == name %} selected {% endif %}>{{ name }}</option>
+                    {% endfor %}
+				</select>
+				&emsp;
+				<label>Random</label>
+				<input type="checkbox" id="random" name="random" {% if filter.random == "on" %} checked {% endif %} >
+				<br>
+				<br>
+				<br>
+				<input id="getProfiles" type="submit" value="Get info" name="submit" class="button btn">
+        		<div id="status"></div>
+			</div>
+		</form>
+		<div class="row row-bottom-padded-lg">
+			<div class="col-md-12 animate-box">
+				<div class="section_header">
+					{% if photoData is not empty%}
+						<div id="changes"> {{ filter.gender }} with age range [ {{ageData.from}} - {{ageData.to}}]. Count :: {{ photoData|length}}</div>
+					{% else %}
+						<div id="changes">&emsp;</div>
+					{% endif %}
+					<div class="demo" style="text-align:center">
+						<ul id="lightSlider">
+						{% if photoData is not empty%}
+						{% set iterator = 0 %}
+							{% for key, photoInfo in photoData %}
+									<li data-thumb="{{photoInfo.imgThumbUrl}}">
+									<div class="contain">
+										<img src="{{photoInfo.imgUrl}}" style="width:640px" />
+										<a class="photoSave" href="{{photoInfo.imgUrl}}" download> Save image</a>
+										<a class="photoLike" id="likePhoto_{{iterator}}" onclick="like('{{photoInfo.photoId}}',{{iterator}},'{{ipAddress}}');">Like</a>
+										<a class="photoDislike" id="dislikePhoto_{{iterator}}" onclick="dislike('{{photoInfo.photoId}}',{{iterator}},'{{ipAddress}}');">Dislike</a>
+									</div>
+									</li>
+								{% set iterator = iterator + 1 %}
+							{% endfor %}
+						{% endif %}
+						</ul>
+					</div>
+					<script type="text/javascript">
+					  $(document).ready(function() {
+						    $('#lightSlider').lightSlider({
+						    gallery: true,
+						    item: 1,
+						    loop:true,
+						    slideMargin: 0,
+						    thumbItem: 10
+					});
+			        $('html, body').animate({
+			        	scrollTop: $("#lightSlider").offset().top}, 2000);
+			    	});
+					</script>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6">
+						<p>Copyright {{currentDate}}
+						<a href="#">Top</a></p>
+					</div>
+					<div class="col-md-6"></div>
+				</div>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

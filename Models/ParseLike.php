@@ -1,61 +1,66 @@
 <?php
 
-require_once("/var/www/html/getfaces/Helpers/MysqlConnect.php");
+declare(strict_types = 1);
 
-class ParseLike extends MysqlConnect {
-	
-	// CREATE TABLE `parseThisperson` (
-	//   `photoId` varchar(32) NOT NULL,
-	//   `photoHash` varchar(32) NOT NULL,
-	//   `photoStatus` smallint(1) NOT NULL,
-	//   `gender` varchar(10) NOT NULL,
-	//   `age` smallint(3) NOT NULL,
-	//   `date` int(11) NOT NULL DEFAULT '0'
-	// ) ENGINE=MyISAM DEFAULT CHARSET=utf8
+namespace Models;
 
-	function __construct() {
-		parent::__construct();
-	}
+use ServiceProvider\Database;
 
-	/**
+class ParseLike extends Database
+{
+    // CREATE TABLE `parseAnalyze` (
+    //     `email` varchar(50) NOT NULL,
+    //     `apiKey` varchar(32) NOT NULL,
+    //     `apiSecret` varchar(32) NOT NULL,
+    //     `expireDate` int NOT NULL DEFAULT '0',
+    //     `expired` smallint DEFAULT '0',
+    //     `emailPassword` varchar(32) NOT NULL DEFAULT '0'
+    //   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+    function __construct()
+    {
+        parent::__construct("mysql");
+    }
+
+    /**
      * Check is photo liked from ip address
      *
-     * @param string $photoId
-     * @param string $ipAddr
+     * @param  string $photoId
+     * @param  string $ipAddr
      * @return bool
      */
-	public function checkIsLiked(string $photoId, string $ipAddr) : bool
-	{
-		$status = false;
+    public function checkIsLiked(string $photoId, string $ipAddr): bool
+    {
+        $status = false;
 
-		if (!empty($photoId) && !empty($ipAddr)) {
-			$query = "SELECT INET_NTOA(ipAddr) as ipAddr FROM parseLike WHERE photoId = '" . $photoId . "'";
-			$result = $this->mysqli->query($query);
-			$ip = $result->fetch_assoc()['ipAddr'];
-			if ($ipAddr == $ip) {
-				$status = true;
-			}
-		}
+        if (!empty($photoId) && !empty($ipAddr)) {
+            $query = "SELECT INET_NTOA(ipAddr) as ipAddr FROM parseLike WHERE photoId = '" . $photoId . "'";
+            $result = $this->mysqli->query($query);
+            $ip = $result->fetch_assoc()['ipAddr'];
+            if ($ipAddr == $ip) {
+                $status = true;
+            }
+        }
 
-		return $status;
-	}
+        return $status;
+    }
 
-	/**
+    /**
      * Mark photo is liked from ip
      *
-     * @param string $photoId
-     * @param string $ipAddr
+     * @param  string $photoId
+     * @param  string $ipAddr
      * @return bool
      */
-	public function markIsLiked(string $photoId, string $ipAddr) : bool
-	{
-		$insertStatus = false;
+    public function markIsLiked(string $photoId, string $ipAddr): bool
+    {
+        $insertStatus = false;
 
-		if (!empty($photoId) && !empty($ipAddr)) {
-			$query = "INSERT INTO parseLike (ipAddr, photoId) VALUES(INET_ATON('" . $ipAddr . "'), '" . $photoId . "')";
-			$insertStatus = (bool) $this->mysqli->query($query);
-		}
-		
-		return $insertStatus;
-	}
+        if (!empty($photoId) && !empty($ipAddr)) {
+            $query = "INSERT INTO parseLike (ipAddr, photoId) VALUES(INET_ATON('" . $ipAddr . "'), '" . $photoId . "')";
+            $insertStatus = (bool) $this->mysqli->query($query);
+        }
+        
+        return $insertStatus;
+    }
 }
