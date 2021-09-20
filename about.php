@@ -5,7 +5,7 @@ declare(strict_types = 1);
 require_once 'configs/loader.php';
 
 use DataProvider\Photo;
-use Helpers\TemplateHelper;
+use Helpers\Template;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -21,7 +21,7 @@ class About
         $templateData = [
         "randomThumbUrl" => $photoProvider->getRandomThumb(),
         "currentDate" => date("Y"),
-        "menuList" => TemplateHelper::menuList(),
+        "menuList" => Template::menuList(),
         "page" => "about",
         ];
 

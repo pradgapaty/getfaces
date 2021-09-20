@@ -98,7 +98,7 @@ class ParseThisperson extends Database
         $maxValue = $res->fetch_all(MYSQLI_ASSOC);
 
         if (!empty($maxValue[0]["id"])) {
-            $maxValue = $maxValue[0]["id"];
+            $maxValue = (int) $maxValue[0]["id"];
             $randId = rand(1, $maxValue);
         }
 
